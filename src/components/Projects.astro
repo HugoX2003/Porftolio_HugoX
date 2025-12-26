@@ -1,0 +1,503 @@
+---
+import { Icon } from "astro-icon/components";
+
+const projects = [
+    {
+        title: "PLENAMENTE",
+        description:
+            "Landing page developed with Astro and a frontend web application built with Angular. An integrated system for managing appointments and psychological resources.",
+        tech: [
+            "simple-icons:astro",
+            "simple-icons:angular",
+            "mdi:language-typescript",
+            "simple-icons:netlify",
+        ],
+        type: "FULLSTACK / WEB",
+        image: "/plenamente.webp",
+        links: [
+            {
+                label: "LANDING_REPO",
+                url: "https://github.com/Sauro-Dev/landing-plenamente",
+                icon: "mdi:github",
+            },
+            {
+                label: "FRONT_REPO",
+                url: "https://github.com/Sauro-Dev/PLENA-APP-FRONT/tree/main",
+                icon: "mdi:github",
+            },
+            {
+                label: "LIVE_DEMO",
+                url: "https://plenamente.netlify.app/",
+                icon: "mdi:web",
+            },
+        ],
+    },
+    {
+        title: "CARID_SYSTEM",
+        description:
+            "Vehicle License Plate Identification System. Collaborative project involving planning, frontend development, and detection model training.",
+        tech: ["mdi:language-python", "simple-icons:tensorflow", "mdi:web"],
+        type: "AI / WEB",
+        image: "/carid.webp",
+        links: [
+            {
+                label: "FRONT_REPO",
+                url: "https://github.com/GRUPO-PERCEPCION/carid-frontend",
+                icon: "mdi:github",
+            },
+            {
+                label: "BACK_REPO",
+                url: "https://github.com/GRUPO-PERCEPCION/CARID_PROJECT",
+                icon: "mdi:github",
+            },
+        ],
+    },
+    {
+        title: "FINANCETRACKER",
+        description:
+            "SME finance control mobile application. Native Android development with Kotlin and UI/UX design in Figma.",
+        tech: ["mdi:language-kotlin", "mdi:android", "simple-icons:figma"],
+        type: "MOBILE / DESIGN",
+        image: "/financetracker.webp",
+        links: [
+            {
+                label: "APP_REPO",
+                url: "https://github.com/FinanceTrackerAP/FinanceTracker",
+                icon: "mdi:github",
+            },
+            {
+                label: "FIGMA_DESIGN",
+                url: "https://www.figma.com/design/q5zsFAdIfDEZc7jixQSeiC/FinanceTracker?node-id=0-1&t=tfNRyV8ZA4j7WPgz-1",
+                icon: "simple-icons:figma",
+            },
+        ],
+    },
+    {
+        title: "NISIRA_ASSISTANT",
+        description:
+            "Intelligent RAG-based conversational assistant for document retrieval at NISIRA. Built with Django, React, and ChromaDB.",
+        tech: [
+            "simple-icons:googlegemini",
+            "mdi:file-document-outline",
+            "mdi:brain",
+        ],
+        type: "AI / THESIS",
+        image: "/nisiraassistant.webp",
+        links: [],
+    },
+];
+---
+
+<section id="projects" class="projects-section">
+    <div class="container">
+        <h2 class="section-title">
+            <span class="bracket"
+                >{} PROJECTS <span class="bracket"></span></span
+            >
+        </h2>
+
+        <div class="projects-grid">
+            {
+                projects.map((project) => (
+                    <article class="project-card">
+                        <div class="card-header">
+                            <span class="project-type highlight">
+                                [{project.type}]
+                            </span>
+                            <div class="header-lines" />
+                        </div>
+
+                        <div class="card-content">
+                            <h3 class="project-title">{project.title}</h3>
+                            <p class="project-desc">{project.description}</p>
+
+                            <div class="project-tech">
+                                {project.tech.map((t) => (
+                                    <Icon name={t} class="tech-icon-sm" />
+                                ))}
+                            </div>
+
+                            <button
+                                class="access-btn view-details-btn"
+                                data-project={JSON.stringify(project)}
+                            >
+                                VIEW_DETAILS <Icon name="mdi:eye" />
+                            </button>
+                        </div>
+                    </article>
+                ))
+            }
+        </div>
+    </div>
+</section>
+
+<dialog id="project-modal" class="retro-modal">
+    <div class="modal-content">
+        <button id="close-modal" class="close-btn">[X]</button>
+        <div class="modal-header">
+            <h3 id="modal-title">PROJECT_TITLE</h3>
+            <div class="modal-lines"></div>
+        </div>
+
+        <div class="modal-body">
+            <div class="modal-image-container">
+                <img
+                    id="modal-image"
+                    src="/project-placeholder.png"
+                    alt="Project Preview"
+                    class="modal-img"
+                    loading="lazy"
+                    onerror="this.src='https://placehold.co/600x400/111/00ff41?text=NO_IMAGE_DATA'"
+                />
+                <div class="scanline-overlay"></div>
+            </div>
+
+            <div class="modal-info">
+                <h4>>> SYSTEM_ANALYSIS:</h4>
+                <p id="modal-description">Loading project description...</p>
+
+                <h4>>> DETECTED_TECHNOLOGIES:</h4>
+                <div id="modal-tech" class="project-tech-modal"></div>
+
+                <div class="modal-actions" id="modal-actions"></div>
+            </div>
+        </div>
+    </div>
+</dialog>
+
+<script>
+    const modal = document.getElementById("project-modal");
+    const closeBtn = document.getElementById("close-modal");
+    const modalTitle = document.getElementById("modal-title");
+    const modalDesc = document.getElementById("modal-description");
+    const modalImage = document.getElementById("modal-image");
+    const modalTech = document.getElementById("modal-tech");
+
+    // Open modal buttons
+    // Open modal buttons
+    document.querySelectorAll(".view-details-btn").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+            e.preventDefault();
+            const project = JSON.parse(btn.dataset.project);
+
+            modalTitle.innerText = project.title;
+            modalDesc.innerText = project.description;
+
+            // Set Image
+            modalImage.src = project.image || "/project-placeholder.png";
+
+            // Clear and rebuild tech icons
+            const card = btn.closest(".project-card");
+            const techContainer = card.querySelector(".project-tech");
+            modalTech.innerHTML = techContainer.innerHTML;
+
+            // Rebuild Buttons
+            const actionsContainer = document.getElementById("modal-actions");
+            actionsContainer.innerHTML = ""; // Clear existing
+
+            project.links.forEach((link) => {
+                const a = document.createElement("a");
+                a.href = link.url;
+                a.target = "_blank";
+                a.className = "retro-btn";
+                a.innerHTML = `<span class="btn-text">${link.label}</span>`;
+                actionsContainer.appendChild(a);
+            });
+
+            modal.showModal();
+            document.body.style.overflow = "hidden"; // Prevent background scroll
+        });
+    });
+
+    // Close modal
+    closeBtn?.addEventListener("click", () => {
+        modal.close();
+        document.body.style.overflow = "";
+    });
+
+    modal?.addEventListener("click", (e) => {
+        const dialogDimensions = modal.getBoundingClientRect();
+        if (
+            e.clientX < dialogDimensions.left ||
+            e.clientX > dialogDimensions.right ||
+            e.clientY < dialogDimensions.top ||
+            e.clientY > dialogDimensions.bottom
+        ) {
+            modal.close();
+            document.body.style.overflow = "";
+        }
+    });
+</script>
+
+<style>
+    .projects-section {
+        padding: 4rem 0;
+    }
+
+    .section-title {
+        color: var(--color-secondary);
+        text-align: center;
+        margin-bottom: 3rem;
+        font-size: 2rem;
+        word-break: break-word; /* Ensure it breaks if still too long */
+    }
+
+    @media (max-width: 768px) {
+        .section-title {
+            font-size: 1.5rem;
+        }
+    }
+
+    .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+    }
+
+    .project-card {
+        background: #0f0f0f;
+        border: 1px solid var(--color-border);
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.3s;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .project-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--color-secondary);
+    }
+
+    .card-header {
+        background: #1a1a1a;
+        padding: 0.5rem 1rem;
+        border-bottom: 1px solid var(--color-border);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .project-type {
+        font-size: 0.7rem;
+        color: var(--color-secondary);
+        font-weight: bold;
+        letter-spacing: 1px;
+    }
+
+    .card-content {
+        padding: 1.5rem;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .project-title {
+        color: #fff;
+        margin-bottom: 1rem;
+        font-size: 1.2rem;
+    }
+
+    .project-desc {
+        color: #aaa;
+        margin-bottom: 1.5rem;
+        font-size: 0.9rem;
+        line-height: 1.6;
+    }
+
+    .project-tech {
+        display: flex;
+        gap: 0.8rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .tech-icon-sm {
+        width: 20px;
+        height: 20px;
+        color: #666;
+    }
+
+    .access-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: transparent;
+        border: 1px solid var(--color-secondary);
+        color: var(--color-secondary);
+        font-family: var(--font-heading);
+        font-size: 0.8rem;
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-top: auto;
+        align-self: flex-start;
+    }
+
+    .access-btn:hover {
+        background: var(--color-secondary);
+        color: #000;
+        box-shadow: 0 0 10px var(--color-secondary);
+    }
+
+    /* Modal Styles */
+    .retro-modal {
+        background: transparent;
+        border: none;
+        padding: 0;
+        max-width: 800px;
+        width: 95%; /* Slightly wider on mobile default */
+        color: var(--color-text);
+        backdrop-filter: blur(5px);
+        margin: auto; /* Center natively */
+    }
+
+    .retro-modal[open] {
+        animation: powerOn 0.4s ease-out forwards;
+    }
+
+    @keyframes powerOn {
+        0% {
+            opacity: 0;
+            transform: scale(0.95);
+            filter: brightness(0.5);
+        }
+        50% {
+            opacity: 1;
+            filter: brightness(1.5); /* Flash effect */
+        }
+        100% {
+            opacity: 1;
+            transform: scale(1);
+            filter: brightness(1);
+        }
+    }
+
+    .retro-modal::backdrop {
+        background: rgba(0, 0, 0, 0.8);
+    }
+
+    .modal-content {
+        background: #0a0a0a;
+        border: 2px solid var(--color-primary);
+        box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+        padding: 2rem;
+        position: relative;
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: none;
+        border: none;
+        color: var(--color-secondary);
+        font-family: var(--font-heading);
+        font-size: 1.2rem;
+        cursor: pointer;
+    }
+
+    .close-btn:hover {
+        color: #fff;
+        text-shadow: 0 0 5px var(--color-secondary);
+    }
+
+    .modal-header h3 {
+        color: var(--color-primary);
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .modal-lines {
+        height: 2px;
+        background: repeating-linear-gradient(
+            90deg,
+            var(--color-primary) 0,
+            var(--color-primary) 10px,
+            transparent 10px,
+            transparent 20px
+        );
+        margin-bottom: 2rem;
+    }
+
+    .modal-body {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+    }
+
+    .modal-image-container {
+        position: relative;
+        border: 1px solid var(--color-border);
+        height: 250px;
+        overflow: hidden;
+    }
+
+    .modal-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .modal-info h4 {
+        color: var(--color-accent);
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    .modal-info p {
+        margin-bottom: 2rem;
+        line-height: 1.6;
+    }
+
+    .project-tech-modal {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .modal-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-top: 2rem;
+    }
+
+    .retro-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: transparent;
+        border: 1px solid var(--color-primary);
+        color: var(--color-primary);
+        font-family: var(--font-heading);
+        font-size: 0.8rem;
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .retro-btn:hover {
+        background: var(--color-primary);
+        color: #000;
+        box-shadow: 0 0 10px var(--color-primary);
+    }
+
+    @media (max-width: 768px) {
+        .modal-body {
+            grid-template-columns: 1fr;
+        }
+
+        .modal-actions {
+            justify-content: center;
+        }
+
+        .retro-btn {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+</style>

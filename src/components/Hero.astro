@@ -1,0 +1,178 @@
+---
+
+---
+
+<section class="hero">
+    <div class="container hero-content">
+        <div class="glitch-wrapper">
+            <h1 class="hero-title glitch" data-text="HUGO MARQUEZ">
+                HUGO MÁRQUEZ
+            </h1>
+        </div>
+        <p class="hero-subtitle">SYSTEM.ENGINEER</p>
+
+        <div class="cta-container">
+            <a href="#projects" class="retro-btn">
+                <span class="btn-text">PROJECTS</span>
+                <div class="btn-decor"></div>
+            </a>
+            <a href="https://github.com/HugoX2003" class="retro-btn secondary">
+                <span class="btn-text">GITHUB_ACCESS</span>
+            </a>
+            <a
+                href="https://drive.google.com/file/d/1-5zokp42yqHBhsl7xclR1-Kg6YBjdT0J/view?usp=sharing"
+                target="_blank"
+                class="retro-btn cv-btn"
+            >
+                <span class="btn-text">DOWNLOAD_CV</span>
+            </a>
+        </div>
+
+        <div class="status-panel">
+            <div class="status-line">
+                <span class="label">STATUS:</span>
+                <span class="value online">ONLINE</span>
+            </div>
+            <div class="status-line">
+                <span class="label">LOCATION:</span>
+                <span class="value">PERU</span>
+            </div>
+            <div class="status-line">
+                <span class="label">CURRENT_OBJ:</span>
+                <span class="value">FRONTEND_DEV</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .hero {
+        height: 90vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        border-bottom: 2px solid var(--color-border);
+        background: radial-gradient(
+            circle at center,
+            rgba(0, 50, 0, 0.1) 0%,
+            rgba(0, 0, 0, 0) 70%
+        );
+    }
+
+    .hero-content {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .hero-title {
+        font-size: 5rem;
+        color: #fff;
+        margin-bottom: 1rem;
+        text-shadow: 4px 4px 0px var(--color-primary);
+        position: relative;
+    }
+
+    .hero-subtitle {
+        font-family: var(--font-body);
+        font-size: 1.5rem;
+        color: var(--color-text);
+        letter-spacing: 4px;
+        margin-bottom: 3rem;
+    }
+
+    .cta-container {
+        display: flex;
+        gap: 2rem;
+        margin-bottom: 4rem;
+    }
+
+    .retro-btn {
+        position: relative;
+        padding: 15px 30px;
+        background: transparent;
+        border: 2px solid var(--color-primary);
+        color: var(--color-primary);
+        font-family: var(--font-heading);
+        text-transform: uppercase;
+        font-weight: bold;
+        letter-spacing: 2px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .retro-btn:hover {
+        background: var(--color-primary);
+        color: #000;
+        box-shadow: 0 0 20px var(--color-primary);
+    }
+
+    .retro-btn.secondary {
+        border-color: var(--color-secondary);
+        color: var(--color-secondary);
+    }
+
+    .retro-btn.secondary:hover {
+        background: var(--color-secondary);
+        color: #000;
+        box-shadow: 0 0 20px var(--color-secondary);
+    }
+
+    .retro-btn.cv-btn {
+        border-color: #fff;
+        color: #fff;
+    }
+
+    .retro-btn.cv-btn:hover {
+        background: #fff;
+        color: #000;
+        box-shadow: 0 0 20px #fff;
+    }
+
+    .status-panel {
+        border: 1px solid var(--color-border);
+        padding: 1rem;
+        background: rgba(0, 0, 0, 0.5);
+        font-family: "share tech mono", monospace;
+        text-align: left;
+    }
+
+    .status-line {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    .label {
+        color: #666;
+    }
+
+    .value {
+        color: var(--color-primary);
+    }
+
+    .value.online {
+        animation: blink 2s infinite;
+    }
+
+    @media (max-width: 768px) {
+        .hero-title {
+            font-size: 2.5rem; /* Reduced from 3rem */
+            word-break: break-word;
+            line-height: 1.1;
+        }
+        .cta-container {
+            flex-direction: column;
+            width: 100%;
+        }
+        .retro-btn {
+            width: 100%;
+            text-align: center;
+        }
+    }
+</style>

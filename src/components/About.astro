@@ -1,0 +1,170 @@
+---
+
+---
+
+<section id="about" class="about-section">
+    <div class="container mobile-reverse">
+        <div class="about-text">
+            <h2><span class="prefix">>></span> ABOUT_ME</h2>
+            <p>
+                I am currently a <span class="highlight"
+                    >Computer and Systems Engineering</span
+                > student (10th cycle) at UPAO in Trujillo, Peru. I specialize in
+                <span class="highlight">Frontend Development</span> with a strong
+                eye for design and user experience, while maintaining solid competence
+                in Backend technologies.
+            </p>
+            <p>Available for freelance work and collaboration.</p>
+
+            <div class="specs">
+                <div class="spec-item">
+                    <span class="label">Architecture:</span> Fullstack
+                </div>
+                <div class="spec-item">
+                    <span class="label">Language:</span> English (B2), Spanish (Native)
+                </div>
+                <div class="spec-item">
+                    <span class="label">Location:</span> Peru
+                </div>
+            </div>
+        </div>
+
+        <div class="about-visual">
+            <div class="cyber-circle">
+                <img
+                    src="/profile.webp"
+                    alt="Hugo Marquez"
+                    class="profile-img"
+                    loading="lazy"
+                />
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .about-section {
+        padding: 4rem 0;
+        border-bottom: 1px solid #111;
+    }
+
+    .mobile-reverse {
+        display: flex;
+        align-items: center;
+        gap: 4rem;
+    }
+
+    .about-text {
+        flex: 1;
+    }
+
+    h2 {
+        color: #fff;
+        margin-bottom: 2rem;
+        font-size: 2.5rem;
+    }
+
+    @media (max-width: 768px) {
+        h2 {
+            font-size: 1.8rem;
+        }
+    }
+
+    .prefix {
+        color: var(--color-primary);
+    }
+
+    p {
+        color: #bbb;
+        line-height: 1.8;
+        margin-bottom: 1.5rem;
+        font-size: 1.1rem;
+    }
+
+    .highlight {
+        color: var(--color-primary);
+        font-weight: bold;
+    }
+
+    .specs {
+        margin-top: 2rem;
+        background: #000;
+        border: 1px dashed var(--color-border);
+        padding: 1.5rem;
+    }
+
+    .spec-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 0.5rem;
+        font-family: monospace;
+        color: #888;
+    }
+
+    .spec-item .label {
+        color: var(--color-accent);
+    }
+
+    .about-visual {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+    }
+
+    .cyber-circle {
+        width: 250px;
+        height: 250px;
+        border: 2px solid var(--color-text);
+        border-radius: 50%;
+        position: relative;
+        box-shadow: 0 0 30px rgba(0, 255, 65, 0.1);
+    }
+
+    .cyber-circle::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 200px;
+        height: 200px;
+        border: 1px dashed var(--color-primary);
+        border-radius: 50%;
+        animation: rotate 10s linear infinite;
+    }
+
+    .profile-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+        opacity: 0.9;
+        filter: grayscale(100%) contrast(1.2);
+        transition: all 0.5s ease;
+    }
+
+    .cyber-circle:hover .profile-img {
+        filter: grayscale(0%) contrast(1);
+        opacity: 1;
+    }
+
+    @keyframes rotate {
+        from {
+            transform: translate(-50%, -50%) rotate(0deg);
+        }
+        to {
+            transform: translate(-50%, -50%) rotate(360deg);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .mobile-reverse {
+            flex-direction: column-reverse;
+            text-align: center;
+        }
+
+        .specs {
+            text-align: left;
+        }
+    }
+</style>

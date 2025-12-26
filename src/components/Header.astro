@@ -1,0 +1,107 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<header class="retro-header">
+    <div class="container header-content">
+        <a href="/" class="logo">
+            <span class="glitch" data-text="HUGOX">HUGOX</span>
+        </a>
+
+        <nav class="desktop-nav">
+            <a href="#about" class="nav-link">[ ABOUT ]</a>
+            <a href="#projects" class="nav-link">[ PROJECTS ]</a>
+            <a href="#technologies" class="nav-link">[ SKILLS ]</a>
+        </nav>
+
+        <div class="socials">
+            <a
+                href="https://github.com/HugoX2003"
+                target="_blank"
+                aria-label="GitHub"
+            >
+                <Icon name="mdi:github" class="social-icon" />
+            </a>
+            <a
+                href="https://www.linkedin.com/in/hugo-marquez-diestra/"
+                target="_blank"
+                aria-label="LinkedIn"
+            >
+                <Icon name="mdi:linkedin" class="social-icon" />
+            </a>
+        </div>
+    </div>
+</header>
+
+<style>
+    .retro-header {
+        background-color: rgba(10, 10, 10, 0.9);
+        border-bottom: 2px solid var(--color-primary);
+        padding: 1rem 0;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        backdrop-filter: blur(5px);
+        box-shadow: 0 0 15px rgba(0, 255, 65, 0.2);
+    }
+
+    .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .logo {
+        font-family: var(--font-heading);
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--color-primary);
+        text-decoration: none;
+        letter-spacing: 3px;
+        position: relative;
+    }
+
+    .desktop-nav {
+        display: flex;
+        gap: 2rem;
+    }
+
+    .nav-link {
+        color: var(--color-text);
+        font-family: var(--font-heading);
+        font-size: 0.9rem;
+        &:hover {
+            color: var(--color-accent);
+            text-shadow: 0 0 8px var(--color-accent);
+        }
+    }
+
+    .socials {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+    }
+
+    .social-icon {
+        width: 24px;
+        height: 24px;
+        color: var(--color-text);
+        transition: color 0.3s ease;
+    }
+
+    .social-icon:hover {
+        color: var(--color-secondary);
+    }
+
+    @media (max-width: 768px) {
+        .desktop-nav {
+            display: none;
+        }
+        .container {
+            padding: 0 1rem;
+        }
+        .logo {
+            font-size: 1.2rem;
+        }
+    }
+</style>

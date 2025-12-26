@@ -1,0 +1,38 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+    <div class="container footer-content">
+        <p class="copyright">© {year} HUGOX</p>
+        <div class="footer-links">
+            <a href="#top">[TOP]</a>
+        </div>
+    </div>
+</footer>
+
+<style>
+    .footer {
+        padding: 2rem 0;
+        border-top: 1px solid var(--color-border);
+        background: #050505;
+        margin-top: 4rem;
+    }
+
+    .footer-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .copyright {
+        color: #666;
+        font-size: 0.8rem;
+        letter-spacing: 1px;
+    }
+
+    .footer-links a {
+        color: var(--color-text);
+        font-size: 0.8rem;
+    }
+</style>
