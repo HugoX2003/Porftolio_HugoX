@@ -2,6 +2,10 @@
 import { Icon } from "astro-icon/components";
 import { Image } from "astro:assets";
 
+import constanciaAccodec from "../assets/constancia_accodec.pdf";
+import saurodevImg from "../assets/saurodev_dailyscrum.webp";
+import mtdLpImg from "../assets/mtd_lp.webp";
+
 const experiences = [
     {
         id: "accodec",
@@ -16,7 +20,7 @@ const experiences = [
             "Provided technical support and diagnosed incidents.",
             "Collaborated on improvements to virtual learning environments."
         ],
-        image: "/constancia_accodec.pdf"
+        image: constanciaAccodec
     },
     {
         id: "saurodev",
@@ -32,7 +36,7 @@ const experiences = [
             "Applied architectural best practices and clean code.",
             "Worked under Scrum methodology in iterative development cycles."
         ],
-        image: "/saurodev_dailyscrum.webp"
+        image: saurodevImg
     },
     {
         id: "mtd",
@@ -47,7 +51,7 @@ const experiences = [
             "Optimized HTML5 and CSS3 for cross-browser compatibility and performance.",
             "Collaborated with the UX/UI team to align prototypes with technical implementation."
         ],
-        image: "/mtd_lp.webp"
+        image: mtdLpImg
     }
 ];
 ---
@@ -103,7 +107,7 @@ const experiences = [
                                     </h4>
                                     
                                     <div class="media-container">
-                                        {exp.image.endsWith('.pdf') ? (
+                                        {typeof exp.image === 'string' ? (
                                             <div class="pdf-container">
                                                 <embed 
                                                     src={`${exp.image}#toolbar=0`} 

@@ -10,6 +10,8 @@
         "astro": "astro"
     },
     "dependencies": {
+        "@fontsource/orbitron": "^5.2.8",
+        "@fontsource/rajdhani": "^5.2.7",
         "astro": "^5.0.0",
         "astro-icon": "^1.1.0"
     },
