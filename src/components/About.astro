@@ -3,32 +3,40 @@
 ---
 
 <section id="about" class="about-section">
-    <div class="container mobile-reverse">
+    <div class="container about-content">
         <div class="about-text">
-            <h2><span class="prefix">>></span> ABOUT_ME</h2>
+            <h2 class="section-title">
+                <span class="bracket">>></span> ABOUT_ME
+            </h2>
             <p>
                 I am currently a <span class="highlight"
                     >Computer and Systems Engineering</span
                 > student (10th cycle) at UPAO in Trujillo, Peru. I specialize in
                 <span class="highlight">Frontend Development</span> with a strong
                 eye for design and user experience, while maintaining solid competence
-                in Backend technologies.
+                in Backend technologies and <span class="highlight"
+                    >currently expanding my skills in Cloud/DevOps.</span
+                >
             </p>
-            <p>Available for freelance work and collaboration.</p>
+            <p class="freelance-status">
+                Available for freelance work and collaboration.
+            </p>
 
             <div class="specs">
                 <div class="spec-item">
-                    <span class="label">Architecture:</span> Fullstack
+                    <span class="label">Architecture:</span>
+                    <span class="value">Fullstack</span>
                 </div>
                 <div class="spec-item">
-                    <span class="label">Language:</span> English (B2), Spanish (Native)
+                    <span class="label">Language:</span>
+                    <span class="value">English (C1), Spanish (Native)</span>
                 </div>
                 <div class="spec-item">
-                    <span class="label">Location:</span> Peru
+                    <span class="label">Location:</span>
+                    <span class="value">Peru</span>
                 </div>
             </div>
         </div>
-
         <div class="about-visual">
             <div class="cyber-circle">
                 <img
@@ -44,11 +52,11 @@
 
 <style>
     .about-section {
-        padding: 4rem 0;
+        padding: 8rem 0;
         border-bottom: 1px solid #111;
     }
 
-    .mobile-reverse {
+    .about-content {
         display: flex;
         align-items: center;
         gap: 4rem;
@@ -58,20 +66,21 @@
         flex: 1;
     }
 
-    h2 {
+    .section-title {
         color: #fff;
         margin-bottom: 2rem;
         font-size: 2.5rem;
     }
 
     @media (max-width: 768px) {
-        h2 {
+        .section-title {
             font-size: 1.8rem;
         }
     }
 
-    .prefix {
+    .icon {
         color: var(--color-primary);
+        margin-right: 0.5rem;
     }
 
     p {
@@ -86,23 +95,25 @@
         font-weight: bold;
     }
 
-    .specs {
+    .stats-grid {
         margin-top: 2rem;
         background: #000;
         border: 1px dashed var(--color-border);
         padding: 1.5rem;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
     }
 
-    .spec-item {
+    .stat-item {
         display: flex;
         justify-content: space-between;
-        margin-bottom: 0.5rem;
         font-family: monospace;
         color: #888;
     }
 
-    .spec-item .label {
-        color: var(--color-accent);
+    .stat-item .label {
+        color: var(--color-primary);
     }
 
     .about-visual {
@@ -111,6 +122,7 @@
         justify-content: center;
     }
 
+    /* ... cyber-circle styles preserved ... */
     .cyber-circle {
         width: 250px;
         height: 250px;
@@ -158,12 +170,12 @@
     }
 
     @media (max-width: 768px) {
-        .mobile-reverse {
+        .about-content {
             flex-direction: column-reverse;
             text-align: center;
         }
 
-        .specs {
+        .stats-grid {
             text-align: left;
         }
     }

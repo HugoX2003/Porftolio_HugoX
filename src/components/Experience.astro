@@ -1,0 +1,530 @@
+---
+import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+
+const experiences = [
+    {
+        id: "accodec",
+        company: "ACCODEC",
+        role: "Pre-professional Intern",
+        period: "April 2025 – July 2025",
+        description: "Educational platform administration and technical support.",
+        caption: "Internship Certificate - 360 hours of systems area support.",
+        details: [
+            "Administered and maintained educational platforms (Moodle, WordPress, WooCommerce).",
+            "Configured plugins and managed over 200 user profiles.",
+            "Provided technical support and diagnosed incidents.",
+            "Collaborated on improvements to virtual learning environments."
+        ],
+        image: "/constancia_accodec.pdf"
+    },
+    {
+        id: "saurodev",
+        company: "SauroDev",
+        role: "Frontend Developer",
+        period: "May 2024 – July 2025",
+        description: "Responsive web interface development with Angular and React, integrating REST APIs.",
+        caption: "Daily Scrum Meeting - Active participation in agile methodology.",
+        details: [
+            "Developed responsive web interfaces with Angular and React.",
+            "Integrated REST API consumption and backend services in Java/Spring Boot.",
+            "Implemented reusable components and business logic on the frontend.",
+            "Applied architectural best practices and clean code.",
+            "Worked under Scrum methodology in iterative development cycles."
+        ],
+        image: "/saurodev_dailyscrum.webp"
+    },
+    {
+        id: "mtd",
+        company: "Make The Difference",
+        role: "Frontend Developer",
+        period: "Jan 2024 – Mar 2025",
+        description: "Design and development of Landing Page with React and Figma.",
+        caption: "Landing Page & Banner - Designed and developed from scratch.",
+        details: [
+            "Designed and developed a landing page with React, implementing Figma prototypes.",
+            "Implemented key sections (navigation bar, banner, timeline).",
+            "Optimized HTML5 and CSS3 for cross-browser compatibility and performance.",
+            "Collaborated with the UX/UI team to align prototypes with technical implementation."
+        ],
+        image: "/mtd_lp.webp"
+    }
+];
+---
+
+<section id="experience" class="experience-section">
+    <div class="container">
+        <h2 class="section-title">
+            <span class="bracket">[</span> <span>EXPERIENCE</span> <span class="bracket">]</span>
+        </h2>
+
+        <div class="timeline">
+            {experiences.map((exp, index) => (
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="header">
+                            <h3 class="company">{exp.company}</h3>
+                            <span class="period">{exp.period}</span>
+                        </div>
+                        <h4 class="role">{exp.role}</h4>
+                        <p class="description">{exp.description}</p>
+                        
+                        <button class="view-more-btn" data-id={exp.id}>
+                            <Icon name="mdi:eye" class="btn-icon" />
+                            <span>View Certificate / Details</span>
+                        </button>
+
+                        <div class="corner-decor top-right" />
+                        <div class="corner-decor bottom-left" />
+                    </div>
+                    
+                    {/* Modal Structure (Hidden by default) */}
+                    <dialog id={`modal-${exp.id}`} class="retro-modal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3>{exp.company} - <span>{exp.role}</span></h3>
+                                <button class="close-btn" data-close={exp.id}>
+                                    <Icon name="mdi:close" />
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="details-list">
+                                    <h4>Responsibilities & Achievements:</h4>
+                                    <ul>
+                                        {exp.details.map((detail, idx) => (
+                                            <li>> {detail}</li>
+                                        ))}
+                                    </ul>
+                                </div>
+                                <div class="proof-visual">
+                                    <h4 class="proof-title">
+                                        <Icon name="mdi:file-document-outline" class="doc-icon-sm" />
+                                        <span>Certificate / Proof</span>
+                                    </h4>
+                                    
+                                    <div class="media-container">
+                                        {exp.image.endsWith('.pdf') ? (
+                                            <div class="pdf-container">
+                                                <embed 
+                                                    src={`${exp.image}#toolbar=0`} 
+                                                    type="application/pdf" 
+                                                    width="100%" 
+                                                    height="400px" 
+                                                />
+                                                <div class="caption-box">
+                                                    <Icon name="mdi:information-outline" class="info-icon" />
+                                                    <span>{exp.caption}</span>
+                                                </div>
+                                                <a href={exp.image} target="_blank" class="download-link retro-btn">
+                                                    Open PDF in new tab
+                                                </a>
+                                            </div>
+                                        ) : (
+                                        <div class="img-wrapper">
+                                            <Image 
+                                                src={exp.image} 
+                                                alt="Proof" 
+                                                width={800} 
+                                                height={600} 
+                                                class="proof-img" 
+                                                loading="lazy" 
+                                            />
+                                            <div class="img-caption">
+                                                <Icon name="mdi:information-outline" class="info-icon" />
+                                                <span>{exp.caption}</span>
+                                            </div>
+                                        </div>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </dialog>
+                </div>
+            ))}
+        </div>
+    </div>
+</section>
+
+<script>
+    import { setupModals } from "../scripts/utils";
+
+    document.addEventListener('astro:page-load', () => {
+        setupModals(".view-more-btn", ".close-btn", "dialog.retro-modal");
+    });
+
+    // Fallback for non-ViewTransitions setup
+    document.addEventListener('DOMContentLoaded', () => {
+        setupModals(".view-more-btn", ".close-btn", "dialog.retro-modal");
+    });
+</script>
+
+<style>
+    .experience-section {
+        padding: 8rem 0; /* Increased padding */
+        position: relative;
+    }
+
+    .section-title {
+        color: var(--color-primary);
+        text-align: center;
+        margin-bottom: 5rem;
+        font-size: 2.5rem;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+    }
+
+    @media (max-width: 768px) {
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 3rem;
+        }
+    }
+
+    .timeline {
+        position: relative;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 1rem;
+        display: flow-root; /* Fixes float collapsing */
+    }
+
+    /* Vertical Line */
+    .timeline::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: var(--color-primary);
+        opacity: 0.3;
+    }
+
+    @media (min-width: 768px) {
+        .timeline::before {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    }
+
+    .timeline-item {
+        margin-bottom: 3rem;
+        position: relative;
+    }
+
+    .timeline-content {
+        background: rgba(10, 10, 10, 0.9);
+        border: 1px solid var(--color-border);
+        padding: 1.5rem;
+        border-radius: 8px;
+        width: 100%;
+        position: relative;
+        transition: all 0.3s ease;
+    }
+
+    .timeline-content:hover {
+        border-color: var(--color-primary);
+        box-shadow: 0 0 15px rgba(0, 255, 65, 0.1);
+    }
+
+    @media (min-width: 768px) {
+        .timeline-item {
+            width: 50%;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            float: left;
+            padding-right: 2rem;
+            clear: both;
+        }
+
+        .timeline-item:nth-child(even) {
+            float: right;
+            padding-left: 2rem;
+            clear: both;
+            margin-top: 3rem; /* Stagger effect */
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* Connector dots */
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            width: 15px;
+            height: 15px;
+            background: var(--color-bg);
+            border: 2px solid var(--color-primary);
+            border-radius: 50%;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content::before {
+            right: -2rem; /* Half of gap + offset */
+            transform: translateX(50%);
+        }
+
+        .timeline-item:nth-child(even) .timeline-content::before {
+            left: -2rem;
+            transform: translateX(-50%);
+        }
+    }
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.5rem;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .company {
+        color: var(--color-primary);
+        font-family: var(--font-heading);
+        font-size: 1.2rem;
+        margin: 0;
+    }
+
+    .period {
+        font-size: 0.8rem;
+        color: #888;
+        font-family: monospace;
+        border: 1px solid #333;
+        padding: 0.1rem 0.5rem;
+        border-radius: 4px;
+    }
+
+    .role {
+        color: var(--color-text);
+        font-size: 1.1rem;
+        margin: 0 0 0.5rem 0;
+    }
+
+    .description {
+        color: #aaa;
+        font-size: 0.9rem;
+        line-height: 1.5;
+        margin-bottom: 1rem;
+    }
+
+    .view-more-btn {
+        background: transparent;
+        border: 1px dashed var(--color-accent);
+        color: var(--color-accent);
+        padding: 0.5rem 1rem;
+        font-family: var(--font-body);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.2s ease;
+        font-size: 0.8rem;
+    }
+
+    .view-more-btn:hover {
+        background: rgba(0, 204, 255, 0.1);
+        text-shadow: 0 0 5px var(--color-accent);
+    }
+
+    .corner-decor {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        border : 1px solid var(--color-primary);
+        opacity: 0.5;
+    }
+
+    .top-right { top: 3px; right: 3px; border-bottom: none; border-left: none; }
+    .bottom-left { bottom: 3px; left: 3px; border-top: none; border-right: none; }
+
+    /* Modal Styles */
+    .retro-modal {
+        background: rgba(15, 15, 15, 0.95);
+        border: 1px solid var(--color-primary);
+        color: var(--color-text);
+        max-width: 600px;
+        width: 90%;
+        padding: 0;
+        border-radius: 8px;
+        box-shadow: 0 0 50px rgba(0, 255, 65, 0.2);
+    }
+
+    .retro-modal::backdrop {
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(2px);
+    }
+
+    .modal-content {
+        padding: 2rem;
+    }
+
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #333;
+        padding-bottom: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .modal-header h3 {
+        color: var(--color-primary);
+        font-family: var(--font-heading);
+        margin: 0;
+        font-size: 1.2rem;
+    }
+
+    .close-btn {
+        background: none;
+        border: none;
+        color: #fff;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+    
+    .close-btn:hover {
+        color: var(--color-secondary);
+    }
+
+    .details-list ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .details-list li {
+        margin-bottom: 0.5rem;
+        color: #ccc;
+        font-size: 0.9rem;
+    }
+
+    .proof-visual {
+        margin-top: 2rem;
+        border: 1px dashed #444;
+        padding: 1rem;
+        background: rgba(0,0,0,0.5);
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .proof-title {
+        color: var(--color-primary);
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin: 0;
+        border-bottom: 1px solid #333;
+        padding-bottom: 0.5rem;
+    }
+
+    .doc-icon-sm {
+        font-size: 1.2rem;
+    }
+
+    .media-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .img-wrapper {
+        position: relative;
+        overflow: hidden;
+        border-radius: 4px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        display: flex;
+        justify-content: center;
+        background: #000;
+        width: 100%;
+    }
+
+    .proof-img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        transition: transform 0.3s ease;
+    }
+
+    .img-wrapper:hover .proof-img {
+        transform: scale(1.02);
+    }
+
+    .img-caption {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.85);
+        color: var(--color-primary);
+        padding: 0.75rem;
+        transform: translateY(100%);
+        transition: transform 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+        border-top: 1px solid var(--color-primary);
+    }
+
+    .img-wrapper:hover .img-caption {
+        transform: translateY(0);
+    }
+
+    .caption-box {
+        width: 100%;
+        background: rgba(10, 10, 10, 0.8);
+        border: 1px solid #333;
+        border-left: 3px solid var(--color-primary);
+        padding: 0.75rem;
+        margin-top: 0.5rem;
+        color: #ccc;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .info-icon {
+        font-size: 1.2rem;
+        color: var(--color-primary);
+        flex-shrink: 0;
+    }
+
+    .pdf-container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .download-link {
+        font-size: 0.8rem;
+        text-align: center;
+        padding: 0.5rem 1rem;
+        border: 1px solid var(--color-primary);
+        color: var(--color-primary);
+        text-decoration: none;
+        margin-top: 0.5rem;
+    }
+    
+    .download-link:hover {
+        background: var(--color-primary);
+        color: #000;
+    }
+    
+    .bracket {
+        color: var(--color-text);
+        animation: blink 1s infinite;
+    }
+    
+    @keyframes blink {
+        50% { opacity: 0; }
+    }
+</style>

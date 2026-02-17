@@ -5,9 +5,6 @@ const year = new Date().getFullYear();
 <footer class="footer">
     <div class="container footer-content">
         <p class="copyright">© {year} HUGOX</p>
-        <div class="footer-links">
-            <a href="#top">[TOP]</a>
-        </div>
     </div>
 </footer>
 
@@ -21,7 +18,7 @@ const year = new Date().getFullYear();
 
     .footer-content {
         display: flex;
-        justify-content: space-between;
+        justify-content: center; /* Changed to center since it's single item now, or keep flex-start? User didn't specify alignment, but center usually looks better for single footer item */
         align-items: center;
     }
 
@@ -29,10 +26,5 @@ const year = new Date().getFullYear();
         color: #666;
         font-size: 0.8rem;
         letter-spacing: 1px;
-    }
-
-    .footer-links a {
-        color: var(--color-text);
-        font-size: 0.8rem;
     }
 </style>
