@@ -112,12 +112,8 @@ const categories = [
 
 <section id="skills" class="technologies-section">
     <div class="container">
-        <h2 class="section-title">
-            <span class="bracket">&lt;</span>
-            <span class="desktop-text">TECHNOLOGIES</span><span
-                class="mobile-text">SKILLS</span
-            > / <span class="bracket">&gt;</span>
-        </h2>
+        <p class="section-path">what i use</p>
+        <h2 class="section-title">Stack</h2>
 
         <div class="categories-grid">
             {
@@ -130,30 +126,21 @@ const categories = [
                         </div>
 
                         <div class="skills-grid">
-                            {cat.skills.length > 0 ? (
-                                cat.skills.map((skill) => (
-                                    <div class="skill-item" title={skill.name}>
-                                        <Icon
-                                            name={skill.icon}
-                                            class="skill-icon"
-                                            style={`color: ${skill.color}`}
-                                        />
-                                    </div>
-                                ))
-                            ) : (
-                                <div class="empty-state">
-                                    <span>Coming soon...</span>
+                            {cat.skills.map((skill) => (
+                                <div
+                                    class="skill-item"
+                                    title={skill.name}
+                                    style={`--skill-color: ${skill.color}`}
+                                >
+                                    <Icon name={skill.icon} class="skill-icon" />
+                                    <span class="sr-only">{skill.name}</span>
                                 </div>
-                            )}
+                            ))}
                         </div>
 
                         <div class="category-footer">
                             <span>{cat.skills.length} tools</span>
                         </div>
-
-                        {/* Decor elements */}
-                        <div class="corner-decor top-right" />
-                        <div class="corner-decor bottom-left" />
                     </div>
                 ))
             }
@@ -163,24 +150,32 @@ const categories = [
 
 <style>
     .technologies-section {
-        padding: 4rem 0;
+        min-height: calc(100vh - var(--header-h));
+        display: flex;
+        align-items: center;
+        padding: 6rem 0;
         position: relative;
     }
 
+    .technologies-section > .container {
+        width: 100%;
+    }
+
+    .section-path {
+        text-align: center;
+    }
+
     .section-title {
-        color: var(--color-primary);
+        color: #fff;
         text-align: center;
         margin-bottom: 4rem;
         font-size: 2.5rem;
-        text-transform: uppercase;
-        letter-spacing: 4px;
     }
 
     @media (max-width: 768px) {
         .section-title {
-            font-size: 1.8rem;
+            font-size: 1.9rem;
             margin-bottom: 2rem;
-            letter-spacing: 2px;
         }
     }
 
@@ -204,22 +199,20 @@ const categories = [
     }
 
     .category-card {
-        background: rgba(10, 10, 10, 0.8);
+        background: var(--color-bg-raised);
         border: 1px solid var(--color-border);
-        border-radius: 12px;
+        border-radius: var(--radius);
         padding: 2rem;
         display: flex;
         flex-direction: column;
         align-items: center;
         position: relative;
-        transition: all 0.3s ease;
-        backdrop-filter: blur(10px);
+        transition: transform 0.25s ease, border-color 0.25s ease;
     }
 
     .category-card:hover {
         transform: translateY(-5px);
-        border-color: var(--color-primary);
-        box-shadow: 0 0 20px rgba(0, 255, 65, 0.1);
+        border-color: var(--color-text-dim);
     }
 
     .cat-header {
@@ -239,16 +232,17 @@ const categories = [
 
     .cat-title {
         color: #fff;
-        font-size: 1.5rem;
-        margin: 0 0 0.5rem 0;
+        font-size: 1.4rem;
+        margin: 0 0 0.25rem 0;
         font-family: var(--font-heading);
     }
 
     .cat-desc {
-        color: #888;
-        font-size: 0.9rem;
+        color: var(--color-text-dim);
+        font-size: 0.85rem;
         text-transform: uppercase;
         letter-spacing: 1px;
+        margin: 0;
     }
 
     .skills-grid {
@@ -284,7 +278,7 @@ const categories = [
         width: 32px;
         height: 32px;
         font-size: 2rem;
-        color: #555; /* Default dormant color */
+        color: #777; /* Dormant; lights up with brand color on hover */
         transition: all 0.3s ease;
         filter: grayscale(100%) opacity(0.7);
     }
@@ -295,14 +289,16 @@ const categories = [
         transform: scale(1.1);
     }
 
-    .empty-state {
-        grid-column: 1 / -1;
-        text-align: center;
-        color: #555;
-        padding: 2rem 0;
-        font-style: italic;
-        border: 1px dashed #333;
-        border-radius: 8px;
+    .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
     }
 
     .category-footer {
@@ -316,70 +312,14 @@ const categories = [
     .category-footer span {
         color: var(--color-primary);
         font-size: 0.8rem;
-        background: rgba(0, 255, 65, 0.1);
+        background: rgba(116, 217, 78, 0.1);
         padding: 0.25rem 1rem;
         border-radius: 20px;
-    }
-
-    .corner-decor {
-        position: absolute;
-        width: 15px;
-        height: 15px;
-        border: 2px solid var(--color-accent);
-        opacity: 0.5;
-        transition: all 0.3s ease;
-    }
-
-    .top-right {
-        top: -1px;
-        right: -1px;
-        border-bottom: none;
-        border-left: none;
-        border-radius: 0 12px 0 0;
-    }
-
-    .bottom-left {
-        bottom: -1px;
-        left: -1px;
-        border-top: none;
-        border-right: none;
-        border-radius: 0 0 0 12px;
-    }
-
-    .category-card:hover .corner-decor {
-        opacity: 1;
-        width: 25px;
-        height: 25px;
-        border-color: var(--color-secondary);
     }
 
     @media (max-width: 600px) {
         .skills-grid {
             grid-template-columns: repeat(3, 1fr);
-        }
-    }
-
-    .bracket {
-        color: var(--color-text);
-        animation: blink 1s infinite;
-    }
-
-    @keyframes blink {
-        50% {
-            opacity: 0;
-        }
-    }
-
-    .mobile-text {
-        display: none;
-    }
-
-    @media (max-width: 768px) {
-        .desktop-text {
-            display: none;
-        }
-        .mobile-text {
-            display: inline;
         }
     }
 </style>

@@ -9,7 +9,7 @@ import nisiraassistantImg from "../assets/nisiraassistant.webp";
 
 const projects = [
     {
-        title: "PLENAMENTE",
+        title: "PlenaMente",
         description:
             "Landing page developed with Astro and a frontend web application built with Angular. An integrated system for managing appointments and psychological resources.",
         tech: [
@@ -22,24 +22,24 @@ const projects = [
         image: plenamenteImg,
         links: [
             {
-                label: "LANDING_REPO",
+                label: "Landing repo",
                 url: "https://github.com/Sauro-Dev/landing-plenamente",
                 icon: "mdi:github",
             },
             {
-                label: "FRONT_REPO",
+                label: "Frontend repo",
                 url: "https://github.com/Sauro-Dev/PLENA-APP-FRONT/tree/main",
                 icon: "mdi:github",
             },
             {
-                label: "LIVE_DEMO",
+                label: "Live demo",
                 url: "https://plenamente.netlify.app/",
                 icon: "mdi:web",
             },
         ],
     },
     {
-        title: "CARID_SYSTEM",
+        title: "CarID System",
         description:
             "Vehicle License Plate Identification System. Collaborative project involving planning, frontend development, and detection model training.",
         tech: ["mdi:language-python", "simple-icons:tensorflow", "mdi:web"],
@@ -47,19 +47,19 @@ const projects = [
         image: caridImg,
         links: [
             {
-                label: "FRONT_REPO",
+                label: "Frontend repo",
                 url: "https://github.com/GRUPO-PERCEPCION/carid-frontend",
                 icon: "mdi:github",
             },
             {
-                label: "BACK_REPO",
+                label: "Backend repo",
                 url: "https://github.com/GRUPO-PERCEPCION/CARID_PROJECT",
                 icon: "mdi:github",
             },
         ],
     },
     {
-        title: "FINANCETRACKER",
+        title: "FinanceTracker",
         description:
             "SME finance control mobile application. Native Android development with Kotlin and UI/UX design in Figma.",
         tech: ["mdi:language-kotlin", "mdi:android", "simple-icons:figma"],
@@ -67,19 +67,19 @@ const projects = [
         image: financetrackerImg,
         links: [
             {
-                label: "APP_REPO",
+                label: "App repo",
                 url: "https://github.com/FinanceTrackerAP/FinanceTracker",
                 icon: "mdi:github",
             },
             {
-                label: "FIGMA_DESIGN",
+                label: "Figma design",
                 url: "https://www.figma.com/design/q5zsFAdIfDEZc7jixQSeiC/FinanceTracker?node-id=0-1&t=tfNRyV8ZA4j7WPgz-1",
                 icon: "simple-icons:figma",
             },
         ],
     },
     {
-        title: "NISIRA_ASSISTANT",
+        title: "Nisira Assistant",
         description:
             "Intelligent RAG-based conversational assistant for document retrieval at NISIRA. Built with Django, React, and ChromaDB.",
         tech: [
@@ -96,23 +96,16 @@ const projects = [
 
 <section id="projects" class="projects-section">
     <div class="container">
-        <h2 class="section-title">
-            <span class="bracket"
-                >{}
-                <span>PROJECTS</span>
-                <span class="bracket"></span></span
-            >
-        </h2>
+        <p class="section-path">things i've made</p>
+        <h2 class="section-title">Projects</h2>
 
         <div class="projects-grid">
             {
                 projects.map((project) => (
                     <article class="project-card">
                         <div class="card-header">
-                            <span
-                                class="project-type highlight"
-                            >
-                                [{project.type}]
+                            <span class="project-type">
+                                {project.type}
                             </span>
                             <div class="header-lines" />
                         </div>
@@ -146,9 +139,7 @@ const projects = [
                                 class="access-btn view-details-btn"
                                 data-target={`modal-${project.title.replace(/\s+/g, "-")}`}
                             >
-                                <span>
-                                    VIEW_DETAILS
-                                </span>{" "}
+                                <span>View details</span>{" "}
                                 <Icon name="mdi:eye" />
                             </button>
                         </div>
@@ -159,12 +150,10 @@ const projects = [
     </div>
 </section>
 
-</section>
-
 {projects.map((project) => (
     <dialog id={`modal-${project.title.replace(/\s+/g, '-')}`} class="retro-modal">
         <div class="modal-content">
-            <button class="close-btn" data-close={project.title.replace(/\s+/g, '-')}>[X]</button>
+            <button class="close-btn" data-close={project.title.replace(/\s+/g, '-')} aria-label="Close">✕</button>
             <div class="modal-header">
                 <h3>{project.title}</h3>
                 <div class="modal-lines"></div>
@@ -180,18 +169,15 @@ const projects = [
                         class="modal-img"
                         loading="lazy"
                     />
-                    <div class="scanline-overlay"></div>
                 </div>
 
                 <div class="modal-info">
-                    <h4>>> SYSTEM_ANALYSIS:</h4>
+                    <h4>About this project</h4>
                     <p>
                         {project.description}
                     </p>
 
-                    <h4>
-                        >> DETECTED_TECHNOLOGIES:
-                    </h4>
+                    <h4>Technologies</h4>
                     <div class="project-tech-modal">
                         {project.tech.map((t) => (
                              <Icon name={t} class="tech-icon-sm" />
@@ -199,18 +185,15 @@ const projects = [
                     </div>
 
                     <div class="modal-actions">
-                        {project.links.map((link) => (
-                            <a href={link.url} target="_blank" class="retro-btn">
-                                <span class="btn-text">
-                                    {link.label === "LANDING_REPO" ? "REPO_LANDING" :
-                                     link.label === "FRONT_REPO" ? "REPO_FRONTEND" :
-                                     link.label === "BACK_REPO" ? "REPO_BACKEND" :
-                                     link.label === "LIVE_DEMO" ? "LIVE_DEMO" :
-                                     link.label === "APP_REPO" ? "REPO_APP" :
-                                     link.label === "FIGMA_DESIGN" ? "FIGMA_DESIGN" : link.label}
-                                </span>
-                            </a>
-                        ))}
+                        {project.links.length > 0 ? (
+                            project.links.map((link) => (
+                                <a href={link.url} target="_blank" class="retro-btn">
+                                    <span class="btn-text">{link.label}</span>
+                                </a>
+                            ))
+                        ) : (
+                            <p class="private-note">private repo — thesis in progress</p>
+                        )}
                     </div>
                 </div>
             </div>
@@ -233,20 +216,30 @@ const projects = [
 
 <style>
     .projects-section {
-        padding: 4rem 0;
+        min-height: calc(100vh - var(--header-h));
+        display: flex;
+        align-items: center;
+        padding: 6rem 0;
+    }
+
+    .projects-section > .container {
+        width: 100%;
+    }
+
+    .section-path {
+        text-align: center;
     }
 
     .section-title {
-        color: var(--color-secondary);
+        color: #fff;
         text-align: center;
         margin-bottom: 3rem;
-        font-size: 2rem;
-        word-break: break-word; /* Ensure it breaks if still too long */
+        font-size: 2.5rem;
     }
 
     @media (max-width: 768px) {
         .section-title {
-            font-size: 1.5rem;
+            font-size: 1.9rem;
         }
     }
 
@@ -257,22 +250,23 @@ const projects = [
     }
 
     .project-card {
-        background: #0f0f0f;
+        background: var(--color-bg-raised);
         border: 1px solid var(--color-border);
+        border-radius: var(--radius);
         position: relative;
         overflow: hidden;
-        transition: transform 0.3s;
+        transition: transform 0.3s ease, border-color 0.3s ease;
         display: flex;
         flex-direction: column;
     }
 
     .project-card:hover {
         transform: translateY(-5px);
-        border-color: var(--color-secondary);
+        border-color: var(--color-text-dim);
     }
 
     .card-header {
-        background: #1a1a1a;
+        background: rgba(36, 53, 74, 0.35);
         padding: 0.5rem 1rem;
         border-bottom: 1px solid var(--color-border);
         display: flex;
@@ -283,7 +277,7 @@ const projects = [
     .project-type {
         font-size: 0.7rem;
         color: var(--color-secondary);
-        font-weight: bold;
+        font-weight: 700;
         letter-spacing: 1px;
     }
 
@@ -298,9 +292,7 @@ const projects = [
         color: #fff;
         margin-bottom: 1rem;
         font-size: 1rem;
-        white-space: nowrap;
-        overflow: hidden;
-        /* text-overflow: ellipsis; -- removed as requested */
+        overflow-wrap: break-word;
     }
 
     @media (max-width: 480px) {
@@ -313,7 +305,7 @@ const projects = [
     }
 
     .project-desc {
-        color: #aaa;
+        color: var(--color-text-muted);
         margin-bottom: 1.5rem;
         font-size: 0.9rem;
         line-height: 1.6;
@@ -328,7 +320,7 @@ const projects = [
     .tech-icon-sm {
         width: 20px;
         height: 20px;
-        color: #666;
+        color: var(--color-text-muted);
     }
 
     .access-btn {
@@ -336,23 +328,21 @@ const projects = [
         align-items: center;
         gap: 0.5rem;
         background: transparent;
-        border: 1px solid var(--color-secondary);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius);
         color: var(--color-secondary);
         font-family: var(--font-heading);
-        font-size: 0.8rem;
+        font-size: 0.85rem;
         padding: 0.5rem 1rem;
         cursor: pointer;
-        transition: all 0.3s ease;
-        text-transform: uppercase;
-        letter-spacing: 1px;
+        transition: border-color 0.2s ease, color 0.2s ease;
         margin-top: auto;
         align-self: flex-start;
     }
 
     .access-btn:hover {
-        background: var(--color-secondary);
-        color: #000;
-        box-shadow: 0 0 10px var(--color-secondary);
+        border-color: var(--color-secondary);
+        color: var(--color-accent);
     }
 
     /* Modal Styles */
@@ -368,36 +358,39 @@ const projects = [
     }
 
     .retro-modal[open] {
-        animation: powerOn 0.4s ease-out forwards;
+        animation: fadeUp 0.3s ease-out forwards;
     }
 
-    @keyframes powerOn {
-        0% {
+    @keyframes fadeUp {
+        from {
             opacity: 0;
-            transform: scale(0.95);
-            filter: brightness(0.5);
+            transform: translateY(12px);
         }
-        50% {
+        to {
             opacity: 1;
-            filter: brightness(1.5); /* Flash effect */
-        }
-        100% {
-            opacity: 1;
-            transform: scale(1);
-            filter: brightness(1);
+            transform: translateY(0);
         }
     }
 
     .retro-modal::backdrop {
-        background: rgba(0, 0, 0, 0.8);
+        background: rgba(6, 10, 17, 0.8);
     }
 
     .modal-content {
-        background: #0a0a0a;
-        border: 2px solid var(--color-primary);
-        box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+        background: var(--color-bg-raised);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius);
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
         padding: 2rem;
         position: relative;
+    }
+
+    .private-note {
+        color: var(--color-primary);
+        font-family: var(--font-hand);
+        font-size: 1.5rem;
+        margin: 0;
+        transform: rotate(-1.5deg);
     }
 
     .close-btn {
@@ -406,32 +399,25 @@ const projects = [
         right: 1rem;
         background: none;
         border: none;
-        color: var(--color-secondary);
+        color: var(--color-text-muted);
         font-family: var(--font-heading);
-        font-size: 1.2rem;
+        font-size: 1.1rem;
         cursor: pointer;
     }
 
     .close-btn:hover {
         color: #fff;
-        text-shadow: 0 0 5px var(--color-secondary);
     }
 
     .modal-header h3 {
-        color: var(--color-primary);
+        color: #fff;
         font-size: 1.8rem;
         margin-bottom: 0.5rem;
     }
 
     .modal-lines {
-        height: 2px;
-        background: repeating-linear-gradient(
-            90deg,
-            var(--color-primary) 0,
-            var(--color-primary) 10px,
-            transparent 10px,
-            transparent 20px
-        );
+        height: 1px;
+        background: var(--color-border);
         margin-bottom: 2rem;
     }
 
@@ -455,9 +441,9 @@ const projects = [
     }
 
     .modal-info h4 {
-        color: var(--color-accent);
+        color: var(--color-text);
         margin-bottom: 0.5rem;
-        font-size: 0.9rem;
+        font-size: 0.95rem;
     }
 
     .modal-info p {
@@ -483,21 +469,20 @@ const projects = [
         align-items: center;
         gap: 0.5rem;
         background: transparent;
-        border: 1px solid var(--color-primary);
-        color: var(--color-primary);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius);
+        color: var(--color-secondary);
         font-family: var(--font-heading);
-        font-size: 0.8rem;
+        font-size: 0.85rem;
         padding: 0.5rem 1rem;
         cursor: pointer;
-        transition: all 0.3s ease;
-        text-transform: uppercase;
-        letter-spacing: 1px;
+        transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
     }
 
     .retro-btn:hover {
-        background: var(--color-primary);
-        color: #000;
-        box-shadow: 0 0 10px var(--color-primary);
+        border-color: var(--color-primary);
+        background: rgba(116, 217, 78, 0.1);
+        color: var(--color-primary);
     }
 
     @media (max-width: 768px) {
@@ -566,19 +551,4 @@ const projects = [
         object-fit: cover; /* Important for modal image too */
     }
 
-    .scanline-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: repeating-linear-gradient(
-            0deg,
-            rgba(0, 0, 0, 0.1),
-            rgba(0, 0, 0, 0.1) 1px,
-            transparent 1px,
-            transparent 2px
-        );
-        pointer-events: none;
-    }
 </style>

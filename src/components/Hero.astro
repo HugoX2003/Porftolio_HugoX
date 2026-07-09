@@ -4,42 +4,39 @@
 
 <section class="hero">
     <div class="container hero-content">
-        <div class="glitch-wrapper">
-            <h1 class="hero-title glitch" data-text="HUGO MARQUEZ">
-                HUGO MÁRQUEZ
-            </h1>
-        </div>
-        <p class="hero-subtitle">SYSTEM.ENGINEER</p>
+        <h1 class="hero-title">Hugo Márquez</h1>
+        <p class="hero-subtitle">Systems Engineer · Fullstack · Cloud &amp; DevOps</p>
 
         <div class="cta-container">
-            <a href="#projects" class="retro-btn">
-                <span class="btn-text">PROJECTS</span>
-                <div class="btn-decor"></div>
-            </a>
-            <a href="https://github.com/HugoX2003" class="retro-btn secondary">
-                <span class="btn-text">GITHUB_ACCESS</span>
+            <a href="#projects" class="btn primary">View projects</a>
+            <a
+                href="https://github.com/HugoX2003"
+                target="_blank"
+                class="btn"
+            >
+                GitHub
             </a>
             <a
                 href="https://drive.google.com/file/d/1-5zokp42yqHBhsl7xclR1-Kg6YBjdT0J/view?usp=sharing"
                 target="_blank"
-                class="retro-btn cv-btn"
+                class="btn"
             >
-                <span class="btn-text">DOWNLOAD_CV</span>
+                Download CV
             </a>
         </div>
 
         <div class="status-panel">
             <div class="status-line">
-                <span class="label">STATUS:</span>
-                <span class="value online">ONLINE</span>
+                <span class="label">Location</span>
+                <span class="value">Trujillo, Peru</span>
             </div>
             <div class="status-line">
-                <span class="label">LOCATION:</span>
-                <span class="value">PERU</span>
+                <span class="label">Role</span>
+                <span class="value">Backend Developer</span>
             </div>
             <div class="status-line">
-                <span class="label">CURRENT_OBJ:</span>
-                <span class="value">FRONTEND_DEV</span>
+                <span class="label">Focus</span>
+                <span class="value">Cloud &amp; DevOps</span>
             </div>
         </div>
     </div>
@@ -47,17 +44,12 @@
 
 <style>
     .hero {
-        height: 90vh;
+        min-height: calc(100vh - var(--header-h));
         display: flex;
         align-items: center;
         justify-content: center;
         position: relative;
-        border-bottom: 2px solid var(--color-border);
-        background: radial-gradient(
-            circle at center,
-            rgba(0, 50, 0, 0.1) 0%,
-            rgba(0, 0, 0, 0) 70%
-        );
+        padding: 4rem 0 12rem;
     }
 
     .hero-content {
@@ -67,112 +59,119 @@
         align-items: center;
         justify-content: center;
         width: 100%;
+        position: relative;
+        z-index: 1;
     }
 
     .hero-title {
         font-size: 5rem;
+        font-weight: 700;
         color: #fff;
-        margin-bottom: 1rem;
-        text-shadow: 4px 4px 0px var(--color-primary);
-        position: relative;
+        margin-bottom: 0.5rem;
+        line-height: 1.05;
     }
 
     .hero-subtitle {
-        font-family: var(--font-body);
-        font-size: 1.5rem;
-        color: var(--color-text);
-        letter-spacing: 4px;
-        margin-bottom: 3rem;
+        font-size: 1.25rem;
+        color: var(--color-text-muted);
+        margin: 0 0 0.75rem;
     }
 
     .cta-container {
         display: flex;
-        gap: 2rem;
-        margin-bottom: 4rem;
+        gap: 1rem;
+        margin: 2rem 0 4rem;
     }
 
-    .retro-btn {
-        position: relative;
-        padding: 15px 30px;
-        background: transparent;
-        border: 2px solid var(--color-primary);
-        color: var(--color-primary);
+    .btn {
+        padding: 14px 28px;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius);
+        color: var(--color-text);
         font-family: var(--font-heading);
-        text-transform: uppercase;
-        font-weight: bold;
-        letter-spacing: 2px;
-        overflow: hidden;
-        transition: all 0.3s ease;
+        font-weight: 500;
+        font-size: 1rem;
+        background: rgba(13, 21, 34, 0.4);
+        backdrop-filter: blur(4px);
+        transition:
+            background 0.2s ease,
+            color 0.2s ease,
+            border-color 0.2s ease,
+            transform 0.2s ease;
     }
 
-    .retro-btn:hover {
-        background: var(--color-primary);
-        color: #000;
-        box-shadow: 0 0 20px var(--color-primary);
-    }
-
-    .retro-btn.secondary {
-        border-color: var(--color-secondary);
-        color: var(--color-secondary);
-    }
-
-    .retro-btn.secondary:hover {
-        background: var(--color-secondary);
-        color: #000;
-        box-shadow: 0 0 20px var(--color-secondary);
-    }
-
-    .retro-btn.cv-btn {
-        border-color: #fff;
+    .btn:hover {
+        border-color: var(--color-text-muted);
         color: #fff;
+        transform: translateY(-2px);
     }
 
-    .retro-btn.cv-btn:hover {
-        background: #fff;
-        color: #000;
-        box-shadow: 0 0 20px #fff;
+    .btn.primary {
+        background: var(--color-primary);
+        border-color: var(--color-primary);
+        color: #0d1522;
+    }
+
+    .btn.primary:hover {
+        background: #8ae867;
+        border-color: #8ae867;
+        color: #0d1522;
     }
 
     .status-panel {
-        border: 1px solid var(--color-border);
-        padding: 1rem;
-        background: rgba(0, 0, 0, 0.5);
-        font-family: "share tech mono", monospace;
-        text-align: left;
+        display: flex;
+        gap: 3rem;
+        padding: 1rem 2rem;
+        border: 1px solid rgba(36, 53, 74, 0.8);
+        border-radius: var(--radius);
+        background: rgba(13, 21, 34, 0.45);
+        backdrop-filter: blur(4px);
     }
 
     .status-line {
         display: flex;
-        justify-content: space-between;
-        margin-bottom: 0.5rem;
-        font-size: 0.9rem;
+        flex-direction: column;
+        gap: 0.1rem;
+        text-align: left;
     }
 
     .label {
-        color: #666;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: var(--color-text-dim);
     }
 
     .value {
+        font-family: var(--font-hand);
+        font-size: 1.6rem;
         color: var(--color-primary);
-    }
-
-    .value.online {
-        animation: blink 2s infinite;
+        line-height: 1.1;
     }
 
     @media (max-width: 768px) {
-        .hero-title {
-            font-size: 2.5rem; /* Reduced from 3rem */
-            word-break: break-word;
-            line-height: 1.1;
+        .hero {
+            padding-bottom: 8rem;
         }
+
+        .hero-title {
+            font-size: 2.75rem;
+        }
+
         .cta-container {
             flex-direction: column;
             width: 100%;
         }
-        .retro-btn {
+
+        .btn {
             width: 100%;
             text-align: center;
+        }
+
+        .status-panel {
+            flex-direction: column;
+            gap: 1rem;
+            width: 100%;
         }
     }
 </style>

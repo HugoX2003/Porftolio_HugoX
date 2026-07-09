@@ -1,8 +1,10 @@
 ---
 import "../styles/global.css";
 
-import "@fontsource/orbitron";
-import "@fontsource/rajdhani";
+import "@fontsource/space-grotesk/400.css";
+import "@fontsource/space-grotesk/500.css";
+import "@fontsource/space-grotesk/700.css";
+import "@fontsource/reenie-beanie";
 
 interface Props {
     title: string;
@@ -22,7 +24,38 @@ const { title } = Astro.props;
         <title>{title}</title>
     </head>
     <body id="top">
-        <div class="scanlines"></div>
+        <div class="bg-scene" aria-hidden="true">
+            <svg viewBox="0 0 1440 460" preserveAspectRatio="none" role="presentation">
+                <!-- back ridge -->
+                <polygon
+                    fill="#223650"
+                    points="0,460 0,300 120,240 260,150 400,240 520,190 640,260 780,130 920,235 1060,180 1200,260 1320,210 1440,250 1440,460"
+                ></polygon>
+                <!-- snow, sharing the peak vertices -->
+                <g fill="#dfe6ee" opacity="0.30">
+                    <polygon points="234,182 260,152 286,182 275,175 264,186 253,175 243,184"></polygon>
+                    <polygon points="750,164 780,132 810,164 798,157 787,168 775,157 763,166"></polygon>
+                    <polygon points="1032,206 1060,182 1088,206 1077,199 1066,210 1055,199 1044,207"></polygon>
+                    <polygon points="498,212 520,192 542,212 533,206 524,215 514,206"></polygon>
+                    <polygon points="1300,230 1320,212 1340,230 1332,225 1324,233 1314,225"></polygon>
+                </g>
+                <!-- mid ridge -->
+                <polygon
+                    fill="#16233a"
+                    points="0,460 0,340 160,290 320,350 480,285 640,345 800,295 960,355 1120,300 1280,350 1440,320 1440,460"
+                ></polygon>
+                <!-- front ridge -->
+                <polygon
+                    fill="#0f1929"
+                    points="0,460 0,400 200,360 400,410 600,365 800,415 1000,370 1200,412 1440,385 1440,460"
+                ></polygon>
+                <!-- dark field -->
+                <polygon
+                    fill="#0b1220"
+                    points="0,460 0,436 240,428 480,438 720,430 960,440 1200,431 1440,438 1440,460"
+                ></polygon>
+            </svg>
+        </div>
         <slot />
     </body>
 </html>

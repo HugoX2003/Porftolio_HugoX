@@ -6,18 +6,15 @@ import profileImg from "../assets/profile.webp";
 <section id="about" class="about-section">
     <div class="container about-content">
         <div class="about-text">
-            <h2 class="section-title">
-                <span class="bracket">>></span> ABOUT_ME
-            </h2>
+            <p class="section-path">who i am</p>
+            <h2 class="section-title">About me</h2>
             <p>
-                I am currently a <span class="highlight"
+                I am a <span class="highlight"
                     >Computer and Systems Engineering</span
-                > student (10th cycle) at UPAO in Trujillo, Peru. I specialize in
-                <span class="highlight">Frontend Development</span> with a strong
-                eye for design and user experience, while maintaining solid competence
-                in Backend technologies and <span class="highlight"
-                    >currently expanding my skills in Cloud/DevOps.</span
-                >
+                > student (10th cycle) at UPAO in Trujillo, Peru, working as a
+                <span class="highlight">Backend Developer</span> and
+                <span class="highlight">DevOps Engineer</span>, with fullstack
+                experience and a strong eye for design and user experience.
             </p>
             <p class="freelance-status">
                 Available for freelance work and collaboration.
@@ -42,7 +39,7 @@ import profileImg from "../assets/profile.webp";
             <div class="cyber-circle">
                 <Image
                     src={profileImg}
-                    alt="Hugo Marquez"
+                    alt="Hugo Márquez"
                     class="profile-img"
                     loading="lazy"
                     width={250}
@@ -55,8 +52,14 @@ import profileImg from "../assets/profile.webp";
 
 <style>
     .about-section {
-        padding: 8rem 0;
-        border-bottom: 1px solid #111;
+        min-height: calc(100vh - var(--header-h));
+        display: flex;
+        align-items: center;
+        padding: 6rem 0;
+    }
+
+    .about-section > .container {
+        width: 100%;
     }
 
     .about-content {
@@ -75,48 +78,64 @@ import profileImg from "../assets/profile.webp";
         font-size: 2.5rem;
     }
 
+
     @media (max-width: 768px) {
         .section-title {
             font-size: 1.8rem;
         }
     }
 
-    .icon {
-        color: var(--color-primary);
-        margin-right: 0.5rem;
-    }
-
     p {
-        color: #bbb;
+        color: var(--color-text-muted);
         line-height: 1.8;
         margin-bottom: 1.5rem;
         font-size: 1.1rem;
+        text-wrap: pretty;
     }
 
     .highlight {
-        color: var(--color-primary);
-        font-weight: bold;
+        color: var(--color-text);
+        font-weight: 500;
+        border-bottom: 2px solid rgba(116, 217, 78, 0.5);
     }
 
-    .stats-grid {
+    .freelance-status {
+        font-family: var(--font-hand);
+        font-size: 1.7rem;
+        color: var(--color-primary);
+        transform: rotate(-1.5deg);
+        display: inline-block;
+    }
+
+    .specs {
         margin-top: 2rem;
-        background: #000;
-        border: 1px dashed var(--color-border);
+        background: var(--color-bg-raised);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius);
         padding: 1.5rem;
         display: grid;
         grid-template-columns: 1fr;
-        gap: 0.5rem;
+        gap: 0.75rem;
     }
 
-    .stat-item {
+    .spec-item {
         display: flex;
         justify-content: space-between;
-        font-family: monospace;
-        color: #888;
+        gap: 1rem;
+        font-size: 0.95rem;
     }
 
-    .stat-item .label {
-        color: var(--color-primary);
+    .spec-item .label {
+        color: var(--color-text-dim);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 0.8rem;
+        align-self: center;
+    }
+
+    .spec-item .value {
+        color: var(--color-text);
+        text-align: right;
     }
 
     .about-visual {
@@ -125,27 +144,14 @@ import profileImg from "../assets/profile.webp";
         justify-content: center;
     }
 
-    /* ... cyber-circle styles preserved ... */
     .cyber-circle {
         width: 250px;
         height: 250px;
-        border: 2px solid var(--color-text);
+        border: 1px solid var(--color-border);
         border-radius: 50%;
         position: relative;
-        box-shadow: 0 0 30px rgba(0, 255, 65, 0.1);
-    }
-
-    .cyber-circle::before {
-        content: "";
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 200px;
-        height: 200px;
-        border: 1px dashed var(--color-primary);
-        border-radius: 50%;
-        animation: rotate 10s linear infinite;
+        padding: 10px;
+        background: var(--color-bg-raised);
     }
 
     .profile-img {
@@ -154,22 +160,15 @@ import profileImg from "../assets/profile.webp";
         object-fit: cover;
         border-radius: 50%;
         opacity: 0.9;
-        filter: grayscale(100%) contrast(1.2);
-        transition: all 0.5s ease;
+        filter: grayscale(100%);
+        transition:
+            filter 0.5s ease,
+            opacity 0.5s ease;
     }
 
     .cyber-circle:hover .profile-img {
-        filter: grayscale(0%) contrast(1);
+        filter: grayscale(0%);
         opacity: 1;
-    }
-
-    @keyframes rotate {
-        from {
-            transform: translate(-50%, -50%) rotate(0deg);
-        }
-        to {
-            transform: translate(-50%, -50%) rotate(360deg);
-        }
     }
 
     @media (max-width: 768px) {
@@ -178,8 +177,13 @@ import profileImg from "../assets/profile.webp";
             text-align: center;
         }
 
-        .stats-grid {
+        .specs {
             text-align: left;
+        }
+
+        .freelance-status {
+            border-left: none;
+            padding-left: 0;
         }
     }
 </style>

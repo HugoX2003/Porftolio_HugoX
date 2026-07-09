@@ -1,80 +1,173 @@
 ---
 import { Icon } from "astro-icon/components";
+
+const navLinks = [
+    { href: "#about", label: "ABOUT" },
+    { href: "#experience", label: "EXPERIENCE" },
+    { href: "#skills", label: "TECHNOLOGIES" },
+    { href: "#projects", label: "PROJECTS" },
+];
 ---
 
 <header class="retro-header">
     <div class="container header-content">
-        <a href="/" class="logo">
-            <span class="glitch" data-text="HUGOX">HUGOX</span>
-        </a>
+        <a href="/" class="logo">hugox</a>
 
-        <nav class="desktop-nav">
-            <li><a href="#about">[ ABOUT ]</a></li>
-            <li><a href="#experience">[ EXPERIENCE ]</a></li>
-            <li><a href="#skills">[ TECHNOLOGIES ]</a></li>
-            <li><a href="#projects">[ PROJECTS ]</a></li>
+        <nav class="desktop-nav" aria-label="Main">
+            <ul>
+                {
+                    navLinks.map((link) => (
+                        <li>
+                            <a href={link.href} class="nav-link">
+                                {link.label}
+                            </a>
+                        </li>
+                    ))
+                }
+            </ul>
         </nav>
 
-        <div class="socials">
-            <a
-                href="https://github.com/HugoX2003"
-                target="_blank"
-                aria-label="GitHub"
+        <div class="header-right">
+            <div class="socials">
+                <a
+                    href="https://github.com/HugoX2003"
+                    target="_blank"
+                    aria-label="GitHub"
+                >
+                    <Icon name="mdi:github" class="social-icon" />
+                </a>
+                <a
+                    href="https://www.linkedin.com/in/hugomarquezdiestra/"
+                    target="_blank"
+                    aria-label="LinkedIn"
+                >
+                    <Icon name="mdi:linkedin" class="social-icon" />
+                </a>
+            </div>
+
+            <button
+                class="menu-toggle"
+                aria-label="Open menu"
+                aria-expanded="false"
+                aria-controls="mobile-nav"
             >
-                <Icon name="mdi:github" class="social-icon" />
-            </a>
-            <a
-                href="https://www.linkedin.com/in/hugomarquezdiestra/"
-                target="_blank"
-                aria-label="LinkedIn"
-            >
-                <Icon name="mdi:linkedin" class="social-icon" />
-            </a>
+                <Icon name="mdi:menu" class="menu-icon icon-open" />
+                <Icon name="mdi:close" class="menu-icon icon-close" />
+            </button>
         </div>
     </div>
+
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Main (mobile)">
+        <ul>
+            {
+                navLinks.map((link) => (
+                    <li>
+                        <a href={link.href} class="mobile-link">
+                            <span class="prompt">&gt;</span> {link.label}
+                        </a>
+                    </li>
+                ))
+            }
+        </ul>
+    </nav>
 </header>
+
+<script>
+    function setupMobileNav() {
+        const toggle = document.querySelector<HTMLButtonElement>(".menu-toggle");
+        const nav = document.querySelector<HTMLElement>(".mobile-nav");
+        if (!toggle || !nav) return;
+
+        const close = () => {
+            nav.classList.remove("open");
+            toggle.setAttribute("aria-expanded", "false");
+            toggle.setAttribute("aria-label", "Open menu");
+        };
+
+        toggle.addEventListener("click", () => {
+            const isOpen = nav.classList.toggle("open");
+            toggle.setAttribute("aria-expanded", String(isOpen));
+            toggle.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
+        });
+
+        nav.querySelectorAll("a").forEach((link) =>
+            link.addEventListener("click", close)
+        );
+
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") close();
+        });
+    }
+
+    document.addEventListener("astro:page-load", setupMobileNav);
+    document.addEventListener("DOMContentLoaded", setupMobileNav);
+</script>
 
 <style>
     .retro-header {
-        background-color: rgba(10, 10, 10, 0.9);
-        border-bottom: 2px solid var(--color-primary);
-        padding: 1rem 0;
+        background-color: rgba(13, 21, 34, 0.85);
+        border-bottom: 1px solid var(--color-border);
+        height: var(--header-h);
+        display: flex;
+        align-items: center;
         position: sticky;
         top: 0;
         z-index: 100;
-        backdrop-filter: blur(5px);
-        box-shadow: 0 0 15px rgba(0, 255, 65, 0.2);
+        backdrop-filter: blur(8px);
+    }
+
+    .retro-header > .container {
+        width: 100%;
     }
 
     .header-content {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        gap: 1rem;
     }
 
     .logo {
-        font-family: var(--font-heading);
-        font-size: 1.5rem;
-        font-weight: 700;
+        font-family: var(--font-hand);
+        font-size: 2rem;
         color: var(--color-primary);
         text-decoration: none;
-        letter-spacing: 3px;
-        position: relative;
+        line-height: 1;
+        transform: rotate(-2deg);
     }
 
-    .desktop-nav {
+    .logo:hover {
+        color: #8ae867;
+    }
+
+    .desktop-nav ul {
         display: flex;
         gap: 2rem;
+        list-style: none;
+        margin: 0;
+        padding: 0;
     }
 
     .nav-link {
-        color: var(--color-text);
+        color: var(--color-text-muted);
         font-family: var(--font-heading);
-        font-size: 0.9rem;
-        &:hover {
-            color: var(--color-accent);
-            text-shadow: 0 0 8px var(--color-accent);
-        }
+        font-size: 0.85rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        padding-bottom: 4px;
+        border-bottom: 2px solid transparent;
+    }
+
+    .nav-link:hover {
+        color: var(--color-text);
+        border-bottom-color: var(--color-primary);
+    }
+
+    .header-right {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
     }
 
     .socials {
@@ -91,18 +184,93 @@ import { Icon } from "astro-icon/components";
     }
 
     .social-icon:hover {
-        color: var(--color-secondary);
+        color: var(--color-primary);
+    }
+
+    /* Mobile menu */
+    .menu-toggle {
+        display: none;
+        background: transparent;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius);
+        color: var(--color-text);
+        padding: 0.4rem;
+        cursor: pointer;
+        line-height: 0;
+    }
+
+    .menu-icon {
+        width: 24px;
+        height: 24px;
+    }
+
+    .icon-close {
+        display: none;
+    }
+
+    .mobile-nav {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(13, 21, 34, 0.97);
+        border-bottom: 1px solid var(--color-border);
+        backdrop-filter: blur(8px);
+    }
+
+    .mobile-nav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0.5rem 1.25rem;
+    }
+
+    .mobile-link {
+        display: block;
+        padding: 0.9rem 0.5rem;
+        font-family: var(--font-heading);
+        font-size: 0.9rem;
+        letter-spacing: 2px;
+        color: var(--color-text);
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .mobile-nav li:last-child .mobile-link {
+        border-bottom: none;
+    }
+
+    .mobile-link .prompt {
+        color: var(--color-primary);
+        margin-right: 0.5rem;
+    }
+
+    .mobile-link:hover {
+        color: var(--color-primary);
     }
 
     @media (max-width: 768px) {
         .desktop-nav {
             display: none;
         }
-        .container {
-            padding: 0 1rem;
+
+        .menu-toggle {
+            display: inline-flex;
         }
+
+        .mobile-nav.open {
+            display: block;
+        }
+
+        .retro-header:has(.mobile-nav.open) .icon-open {
+            display: none;
+        }
+
+        .retro-header:has(.mobile-nav.open) .icon-close {
+            display: inline;
+        }
+
         .logo {
-            font-size: 1.2rem;
+            font-size: 1.7rem;
         }
     }
 </style>

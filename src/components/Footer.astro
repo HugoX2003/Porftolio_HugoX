@@ -1,10 +1,35 @@
 ---
+import { Icon } from "astro-icon/components";
+
 const year = new Date().getFullYear();
 ---
 
 <footer class="footer">
     <div class="container footer-content">
-        <p class="copyright">© {year} HUGOX</p>
+        <p class="copyright">
+            © {year} HUGOX <span class="dim">// Trujillo, Peru</span>
+        </p>
+
+        <div class="footer-socials">
+            <a
+                href="https://github.com/HugoX2003"
+                target="_blank"
+                aria-label="GitHub"
+            >
+                <Icon name="mdi:github" class="social-icon" />
+            </a>
+            <a
+                href="https://www.linkedin.com/in/hugomarquezdiestra/"
+                target="_blank"
+                aria-label="LinkedIn"
+            >
+                <Icon name="mdi:linkedin" class="social-icon" />
+            </a>
+        </div>
+
+        <a href="#top" class="back-to-top">
+            Back to top <Icon name="mdi:chevron-up" class="up-icon" />
+        </a>
     </div>
 </footer>
 
@@ -12,19 +37,66 @@ const year = new Date().getFullYear();
     .footer {
         padding: 2rem 0;
         border-top: 1px solid var(--color-border);
-        background: #050505;
-        margin-top: 4rem;
+        background: #0a111c;
     }
 
     .footer-content {
         display: flex;
-        justify-content: center; /* Changed to center since it's single item now, or keep flex-start? User didn't specify alignment, but center usually looks better for single footer item */
+        justify-content: space-between;
         align-items: center;
+        gap: 1.5rem;
+        flex-wrap: wrap;
     }
 
     .copyright {
-        color: #666;
-        font-size: 0.8rem;
-        letter-spacing: 1px;
+        color: var(--color-text-muted);
+        font-size: 0.9rem;
+        margin: 0;
+    }
+
+    .copyright .dim {
+        color: var(--color-text-dim);
+    }
+
+    .footer-socials {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+    }
+
+    .social-icon {
+        width: 22px;
+        height: 22px;
+        color: var(--color-text-muted);
+        transition: color 0.3s ease;
+    }
+
+    .social-icon:hover {
+        color: var(--color-primary);
+    }
+
+    .back-to-top {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
+        color: var(--color-text-muted);
+        font-size: 0.9rem;
+    }
+
+    .back-to-top:hover {
+        color: var(--color-primary);
+    }
+
+    .up-icon {
+        width: 16px;
+        height: 16px;
+    }
+
+    @media (max-width: 600px) {
+        .footer-content {
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+        }
     }
 </style>

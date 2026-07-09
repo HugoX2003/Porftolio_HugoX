@@ -1,0 +1,174 @@
+---
+const sections = [
+    { id: "about", label: "ABOUT", index: "01" },
+    { id: "experience", label: "EXPERIENCE", index: "02" },
+    { id: "skills", label: "STACK", index: "03" },
+    { id: "projects", label: "PROJECTS", index: "04" },
+];
+---
+
+<nav class="section-rail" aria-label="Section progress">
+    <ul>
+        {
+            sections.map((s) => (
+                <li>
+                    <a href={`#${s.id}`} class="rail-link" data-section={s.id}>
+                        <span class="rail-index">{s.index}</span>
+                        <span class="rail-tick" aria-hidden="true"></span>
+                        <span class="rail-label">{s.label}</span>
+                    </a>
+                </li>
+            ))
+        }
+    </ul>
+</nav>
+
+<script>
+    function setupSectionRail() {
+        const rail = document.querySelector<HTMLElement>(".section-rail");
+        const links = document.querySelectorAll<HTMLAnchorElement>(".rail-link");
+        if (!rail || links.length === 0) return;
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (!entry.isIntersecting) return;
+                    links.forEach((link) =>
+                        link.classList.toggle(
+                            "active",
+                            link.dataset.section === entry.target.id
+                        )
+                    );
+                });
+            },
+            { rootMargin: "-45% 0px -45% 0px" }
+        );
+
+        links.forEach((link) => {
+            const target = document.getElementById(link.dataset.section!);
+            if (target) observer.observe(target);
+        });
+
+        // Rail only appears once the reader leaves the hero
+        const hero = document.querySelector(".hero");
+        if (hero) {
+            const heroObserver = new IntersectionObserver(
+                ([entry]) => {
+                    rail.classList.toggle(
+                        "visible",
+                        entry.intersectionRatio < 0.3
+                    );
+                },
+                { threshold: [0, 0.3, 0.6] }
+            );
+            heroObserver.observe(hero);
+        } else {
+            rail.classList.add("visible");
+        }
+    }
+
+    document.addEventListener("astro:page-load", setupSectionRail);
+    document.addEventListener("DOMContentLoaded", setupSectionRail);
+</script>
+
+<style>
+    .section-rail {
+        position: fixed;
+        right: 2rem;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 90;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.4s ease;
+    }
+
+    .section-rail.visible {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .section-rail ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 1.75rem;
+        position: relative;
+    }
+
+    /* hairline connecting the ticks */
+    .section-rail ul::before {
+        content: "";
+        position: absolute;
+        top: 0.5rem;
+        bottom: 0.5rem;
+        right: 5px;
+        width: 1px;
+        background: var(--color-border);
+    }
+
+    .rail-link {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 0.6rem;
+        font-size: 0.8rem;
+        letter-spacing: 1px;
+        color: var(--color-text-dim);
+        position: relative;
+    }
+
+    .rail-index {
+        order: 1;
+    }
+
+    .rail-label {
+        order: 0;
+        opacity: 0;
+        transform: translateX(6px);
+        transition:
+            opacity 0.25s ease,
+            transform 0.25s ease;
+        letter-spacing: 2px;
+    }
+
+    .rail-tick {
+        order: 2;
+        width: 11px;
+        height: 11px;
+        border-radius: 50%;
+        border: 1px solid var(--color-text-dim);
+        background: var(--color-bg);
+        transition:
+            background 0.25s ease,
+            border-color 0.25s ease,
+            box-shadow 0.25s ease;
+    }
+
+    .rail-link:hover,
+    .rail-link.active {
+        color: var(--color-primary);
+        text-shadow: none;
+    }
+
+    .rail-link:hover .rail-label,
+    .rail-link.active .rail-label {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    .rail-link:hover .rail-tick,
+    .rail-link.active .rail-tick {
+        border-color: var(--color-primary);
+        background: var(--color-primary);
+        box-shadow: 0 0 8px rgba(116, 217, 78, 0.6);
+    }
+
+    @media (max-width: 1200px) {
+        .section-rail {
+            display: none;
+        }
+    }
+</style>
