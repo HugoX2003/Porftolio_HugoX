@@ -1,0 +1,300 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { Icon } from "astro-icon/components";
+
+// Fallback card: "Ghost Town" — from the ye album, one of my all-time most
+// played. Fetched at build time so artwork/preview URLs stay fresh.
+let track = {
+    name: "Ghost Town (feat. PARTYNEXTDOOR)",
+    artist: "Kanye West",
+    album: "ye",
+    art: "",
+    preview: "",
+    appleUrl:
+        "https://music.apple.com/us/album/ghost-town-feat-partynextdoor/1441460375?i=1441460580",
+    label: "on repeat, always",
+};
+
+try {
+    const res = await fetch(
+        "https://itunes.apple.com/search?term=kanye+west+ghost+town&media=music&limit=1"
+    );
+    const data = await res.json();
+    const hit = data.results?.[0];
+    if (hit) {
+        track.art = hit.artworkUrl100.replace("100x100", "300x300");
+        track.preview = hit.previewUrl;
+        track.appleUrl = hit.trackViewUrl;
+    }
+} catch {
+    /* keep static fallback */
+}
+---
+
+<Layout title="404 | Hugo Márquez">
+    <Header />
+    <main id="main-content" class="notfound">
+        <div class="container nf-inner">
+            <p class="nf-code">404</p>
+            <p class="section-path nf-scrawl">nothing up here</p>
+            <p class="nf-copy">
+                You look lost. But since you made it this far, here's a song
+                from my library:
+            </p>
+
+            <div class="track-card">
+                <img
+                    id="track-art"
+                    src={track.art}
+                    alt=""
+                    width="88"
+                    height="88"
+                    loading="lazy"
+                />
+                <div class="track-info">
+                    <span id="track-label" class="track-label"
+                        >{track.label}</span
+                    >
+                    <strong id="track-name" class="track-name"
+                        >{track.name}</strong
+                    >
+                    <span id="track-artist" class="track-artist"
+                        >{track.artist}</span
+                    >
+                    <div class="track-actions">
+                        <button
+                            id="preview-btn"
+                            class="preview-btn"
+                            data-src={track.preview}
+                            aria-label="Play 30 second preview"
+                        >
+                            <Icon name="mdi:play" class="btn-ico ico-play" />
+                            <Icon name="mdi:pause" class="btn-ico ico-pause" />
+                            <span class="preview-text">Preview</span>
+                        </button>
+                        <a
+                            id="apple-link"
+                            href={track.appleUrl}
+                            target="_blank"
+                            class="track-link">Apple Music</a
+                        >
+                        <a
+                            id="yt-link"
+                            href={`https://www.youtube.com/results?search_query=${encodeURIComponent(`${track.artist} ${track.name}`)}`}
+                            target="_blank"
+                            class="track-link">YouTube</a
+                        >
+                        <a
+                            href="https://www.last.fm/user/HugoX11"
+                            target="_blank"
+                            class="track-link">Last.fm</a
+                        >
+                    </div>
+                </div>
+            </div>
+
+            <a href="/" class="home-btn">Back to base camp</a>
+        </div>
+    </main>
+    <Footer />
+</Layout>
+
+<script is:inline>
+    // 30s preview player
+    (function () {
+        const btn = document.getElementById("preview-btn");
+        if (!btn) return;
+        let audio = null;
+
+        btn.addEventListener("click", () => {
+            const src = btn.dataset.src;
+            if (!src) return;
+
+            if (audio && !audio.paused) {
+                audio.pause();
+                btn.classList.remove("playing");
+                return;
+            }
+            if (!audio || audio.src !== src) {
+                if (audio) audio.pause();
+                audio = new Audio(src);
+                audio.addEventListener("ended", () =>
+                    btn.classList.remove("playing")
+                );
+            }
+            audio.play();
+            btn.classList.add("playing");
+        });
+    })();
+</script>
+
+<style>
+    .notfound {
+        min-height: calc(100vh - var(--header-h));
+        display: flex;
+        align-items: center;
+        padding: 4rem 0;
+    }
+
+    .nf-inner {
+        width: 100%;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nf-code {
+        font-family: var(--font-heading);
+        font-weight: 700;
+        font-size: clamp(6rem, 18vw, 11rem);
+        line-height: 1;
+        color: #fff;
+        margin: 0;
+    }
+
+    .nf-scrawl {
+        font-size: 2.2rem;
+        transform: rotate(-2deg);
+        margin-bottom: 1.5rem;
+    }
+
+    .nf-copy {
+        color: var(--color-text-muted);
+        font-size: 1.05rem;
+        max-width: 420px;
+        line-height: 1.7;
+        margin: 0 0 2rem;
+        text-wrap: pretty;
+    }
+
+    .track-card {
+        display: flex;
+        align-items: center;
+        gap: 1.25rem;
+        background: var(--color-bg-raised);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius);
+        padding: 1.25rem;
+        max-width: 480px;
+        width: 100%;
+        text-align: left;
+        margin-bottom: 2.5rem;
+    }
+
+    #track-art {
+        width: 88px;
+        height: 88px;
+        border-radius: 4px;
+        object-fit: cover;
+        background: var(--color-bg);
+        flex-shrink: 0;
+    }
+
+    .track-info {
+        display: flex;
+        flex-direction: column;
+        gap: 0.15rem;
+        min-width: 0;
+    }
+
+    .track-label {
+        font-family: var(--font-hand);
+        font-size: 1.3rem;
+        color: var(--color-primary);
+    }
+
+    .track-name {
+        color: #fff;
+        font-size: 1.05rem;
+        overflow-wrap: break-word;
+    }
+
+    .track-artist {
+        color: var(--color-text-muted);
+        font-size: 0.9rem;
+    }
+
+    .track-actions {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-top: 0.6rem;
+    }
+
+    .preview-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        background: var(--color-primary);
+        color: #0d1522;
+        border: none;
+        border-radius: 20px;
+        padding: 0.35rem 0.9rem;
+        font-family: var(--font-body);
+        font-weight: 500;
+        font-size: 0.85rem;
+        cursor: pointer;
+        transition: background 0.2s ease;
+    }
+
+    .preview-btn:hover {
+        background: #8ae867;
+    }
+
+    .btn-ico {
+        width: 16px;
+        height: 16px;
+    }
+
+    .ico-pause {
+        display: none;
+    }
+
+    .preview-btn.playing .ico-play {
+        display: none;
+    }
+
+    .preview-btn.playing .ico-pause {
+        display: inline;
+    }
+
+    .track-link {
+        font-size: 0.85rem;
+        color: var(--color-secondary);
+    }
+
+    .track-link:hover {
+        color: var(--color-accent);
+    }
+
+    .home-btn {
+        padding: 14px 28px;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius);
+        color: var(--color-text);
+        font-family: var(--font-heading);
+        font-weight: 500;
+        transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .home-btn:hover {
+        border-color: var(--color-text-muted);
+        color: #fff;
+        transform: translateY(-2px);
+    }
+
+    @media (max-width: 520px) {
+        .track-card {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .track-info {
+            align-items: center;
+        }
+    }
+</style>

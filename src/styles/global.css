@@ -104,6 +104,26 @@ section[id] {
     scroll-margin-top: var(--header-h);
 }
 
+/* Skip link — visible only on keyboard focus */
+.skip-link {
+    position: fixed;
+    top: -100px;
+    left: 1rem;
+    z-index: 200;
+    background: var(--color-primary);
+    color: #0d1522;
+    font-family: var(--font-heading);
+    font-weight: 500;
+    padding: 0.6rem 1.2rem;
+    border-radius: var(--radius);
+    transition: top 0.2s ease;
+}
+
+.skip-link:focus-visible {
+    top: 1rem;
+    color: #0d1522;
+}
+
 /* Scroll reveal — applied by JS so no-JS visitors see everything */
 .will-reveal {
     opacity: 0;

@@ -43,8 +43,34 @@ const { title } = Astro.props;
             name="twitter:description"
             content="Systems Engineer, Backend Developer and DevOps Engineer based in Trujillo, Peru."
         />
+
+        <script
+            type="application/ld+json"
+            set:html={JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "Person",
+                name: "Hugo Márquez Diestra",
+                jobTitle: "Backend Developer & DevOps Engineer",
+                email: "mailto:hmarquezd1@gmail.com",
+                address: {
+                    "@type": "PostalAddress",
+                    addressLocality: "Trujillo",
+                    addressCountry: "PE",
+                },
+                alumniOf: {
+                    "@type": "CollegeOrUniversity",
+                    name: "Universidad Privada Antenor Orrego (UPAO)",
+                },
+                knowsLanguage: ["es", "en"],
+                sameAs: [
+                    "https://github.com/HugoX2003",
+                    "https://www.linkedin.com/in/hugomarquezdiestra/",
+                ],
+            })}
+        />
     </head>
     <body id="top">
+        <a href="#main-content" class="skip-link">Skip to content</a>
         <div class="bg-scene" aria-hidden="true">
             <svg viewBox="0 0 1440 460" preserveAspectRatio="none" role="presentation">
                 <!-- back ridge -->
