@@ -104,6 +104,18 @@ section[id] {
     scroll-margin-top: var(--header-h);
 }
 
+/* Scroll reveal — applied by JS so no-JS visitors see everything */
+.will-reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.will-reveal.revealed {
+    opacity: 1;
+    transform: none;
+}
+
 /* ============================================
    Hero backdrop — dusk sky, clouds and snowcapped
    ridgeline. Lives only behind the first screen,
