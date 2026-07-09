@@ -318,8 +318,48 @@ const categories = [
     }
 
     @media (max-width: 600px) {
+        .category-card {
+            padding: 1.25rem;
+        }
+
+        .cat-header {
+            margin-bottom: 1rem;
+        }
+
+        .cat-icon {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .cat-title {
+            font-size: 1.15rem;
+        }
+
+        .cat-desc {
+            font-size: 0.75rem;
+        }
+
         .skills-grid {
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.6rem;
+            margin-bottom: 1rem;
+        }
+
+        .skill-item {
+            padding: 0.5rem;
+        }
+
+        .skill-icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        .category-footer {
+            padding-top: 0.75rem;
+        }
+
+        .category-footer span {
+            font-size: 0.7rem;
         }
     }
 </style>
